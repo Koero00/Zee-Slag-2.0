@@ -1,0 +1,19 @@
+/* Style */
+.grid-container {
+	display: grid;
+	background-color: darkblue;
+	grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
+	padding: 5px;
+}
+.grid-item {
+	display: inline-grid;
+	background-color: lightblue;
+	border: 1px solid black;
+	cursor: pointer;
+	text-align: center;
+	height: 45px;
+}
+body {
+	padding: 0;
+	margin:0;
+}
