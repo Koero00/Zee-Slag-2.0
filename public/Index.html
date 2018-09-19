@@ -10,6 +10,9 @@
 			 
 		-->
 		<title>Zee Slag</title>
+		<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
 		<link rel="stylesheet" href="css/Style.css">
 	</head>
 	<body>
@@ -129,7 +132,44 @@
 			<div class="grid-item">Position</div>
 			<div class="grid-item">Position</div>
 			<!-- end of row -->
-			
+		
+			<div id="boat1" class="boat">
+				<div class="boatfront">
+					
+				</div>
+				<div class="boattop">
+	
+				</div>
+			</div>
+			<script>
+				$(document).ready(function () {
+					var socket = io(); 
+					socket.on('update_position', function (data) {
+						var x = data.x; 
+						var y = data.y;
+						var i = data.i;
+	
+						$("#"+i).css({
+							'left': x + "px",
+							'top': y + "px"
+						});
+					});
+	
+					$(".boat").draggable({
+						containment: "body",
+						drag: function (event, ui) {
+							var coord = $(this).position();
+							var id = $(this).attr('id');
+							socket.emit('receive_position', {
+								x: coord.left,
+								y: coord.top,
+								i: id
+							});
+						}
+					});
+				});
+			</script>
+		
 		</div>
 	</body>
 </html>
